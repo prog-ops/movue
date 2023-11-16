@@ -1,8 +1,7 @@
-<!-- src/components/MovieList.vue -->
 <template>
   <div>
     <!-- Search field -->
-    <q-input v-model="search" label="Search" @input="updateMovies"/>
+    <q-input v-model="search" label="Search movie name" />
 
     <!-- Movie list -->
     <q-list bordered>
@@ -13,12 +12,12 @@
         @click="goToDetailScreen(movie)"
       >
         <q-item-section>
-          <q-item-label>{{ movie.title }}</q-item-label>
+          <q-item-label>{{ movie.id }} {{ movie.title }} {{ movie.genres }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
 
-    <!-- Floating button -->
+    <!-- Floating button Add -->
     <q-btn
       fab
       color="primary"
@@ -27,49 +26,61 @@
       style="position: fixed; bottom: 16px; right: 16px;"
       @click="addNewMovie"
     />
+
+    <!-- Delete all movies button -->
+    <q-btn color="negative" label="Delete all movies" @click="deleteMovies" />
   </div>
 </template>
 
 <script lang="ts">
-import {ref, onMounted} from 'vue';
-import {getMovies} from '../services/movieService';
+import {ref, onMounted, onBeforeUpdate, computed} from 'vue';
 import {Movie} from '../models/Movie';
-import { useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
+import {store} from 'stores/store'
 
 export default {
   name: 'MovieList',
   setup() {
     const search = ref('');
     const movies = ref<Movie[]>([]);
-    const filteredMovies = ref<Movie[]>([]);
     const router = useRouter();
 
-    const updateMovies = async () => {
-      const allMovies = await getMovies();
-      movies.value = allMovies.filter((movie) =>
+    const filteredMovies = computed(() => {
+      if (!search.value) {
+        return store.movies;
+      }
+      return store.movies.filter((movie) =>
         movie.title.toLowerCase().includes(search.value.toLowerCase())
       );
-    };
+    });
 
     const goToDetailScreen = (selectedMovie: Movie | null) => {
-      router.push({ name: 'MovieDetail', params: { id: selectedMovie?.id } });
+      router.push({name: 'MovieDetail', params: {id: selectedMovie?.id}});
     };
 
     const addNewMovie = () => {
-      router.push({ name: 'MovieDetailAdd' });
+      router.push({name: 'MovieDetailAdd'});
+    };
+
+    const deleteMovies = () => {
+      store.deleteMovies();
     };
 
     onMounted(() => {
-      updateMovies();
+      movies.value = store.getMovies();
+    });
+
+    onBeforeUpdate(() => {
+      movies.value = store.getMovies();
     });
 
     return {
       search,
       movies,
       filteredMovies,
-      updateMovies,
       goToDetailScreen,
-      addNewMovie
+      addNewMovie,
+      deleteMovies
     };
   },
 };
