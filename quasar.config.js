@@ -13,7 +13,7 @@ const { configure } = require('quasar/wrappers');
 const path = require('path');
 
 module.exports = configure(function (/* ctx */) {
-  return {
+  return {publicPath: process.env.NODE_ENV === "production" ? "/movue/" : "/",
     eslint: {
       // fix: true,
       // include: [],
@@ -97,7 +97,8 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      open: true // opens browser window automatically
+      open: false // opens browser window automatically
+      // open: true // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
