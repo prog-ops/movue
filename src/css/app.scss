@@ -1,1 +1,30 @@
 // app global css in SCSS form
+
+.movie-list {
+  padding: 16px;
+
+  .q-item {
+    background-color: $dark;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .movie-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .genre-container {
+    background-color: $primary;
+    color: $info;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-right: 4px;
+    margin-left: auto;
+  }
+
+  .delete-btn {
+    margin-top: 20px;
+  }
+}
