@@ -1,5 +1,5 @@
 <template>
-  <q-layout class="movie-detail">
+  <q-layout>
     <q-page-container>
       <q-page>
         <q-form @submit="saveMovie" class="q-input">
