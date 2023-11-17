@@ -15,6 +15,7 @@
             counter
             @input="truncateSummary"/>
           <q-select
+            use-chips
             v-model="movie.genres"
             label="Genres"
             multiple
@@ -90,7 +91,7 @@ export default {
       genreOptions,
       saveMovie,
       deleteMovie,
-      truncateSummary
+      truncateSummary,
     };
   },
 };
