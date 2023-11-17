@@ -4,10 +4,16 @@
       <q-page>
         <q-form @submit="saveMovie">
           <q-btn label="Save" color="primary" type="submit"/>
-          <q-btn color="negative" label="Delete" @click="deleteMovie" />
+          <q-btn color="negative" label="Delete" @click="deleteMovie"/>
           <q-input v-model="movie.title" label="Title"/>
           <q-input v-model="movie.director" label="Director"/>
-          <q-input v-model="movie.summary" label="Summary" type="textarea"/>
+          <q-input
+            v-model="movie.summary"
+            label="Summary"
+            type="textarea"
+            :maxlength="100"
+            counter
+            @input="truncateSummary"/>
           <q-select
             v-model="movie.genres"
             label="Genres"
@@ -41,21 +47,27 @@ export default {
 
     const genreOptions = ['Drama', 'Action', 'Animation', 'Sci-Fi', 'Horror'];
 
+    const truncateSummary = () => {
+      if (movie.value.summary.length > 100) {
+        movie.value.summary = movie.value.summary.slice(0, 100);
+      }
+    };
+
     const saveMovie = async () => {
       console.log('MovieDetail saved movie:', movie.value);
       if (movie.value.id === 0) {
         // Add movie
-        store.addMovie({ ...movie.value, id: 0 });
+        store.addMovie({...movie.value, id: 0});
       } else {
         // Update the movie
         store.updateMovie(movie.value);
       }
-      router.push({ name: 'MovieList' });
+      router.push({name: 'MovieList'});
     };
 
     const deleteMovie = () => {
       store.deleteMovie(movie.value.id);
-      router.push({ name: 'MovieList' });
+      router.push({name: 'MovieList'});
     };
 
     onMounted(() => {
@@ -65,9 +77,9 @@ export default {
         // Get the clicked movie data
         const existingMovie = store.movies.find((m) => m.id === movieId);
         if (existingMovie) {
-          movie.value = { ...existingMovie };
+          movie.value = {...existingMovie};
         } else {
-          router.push({ name: 'MovieList' });
+          router.push({name: 'MovieList'});
         }
       } else {
       }
@@ -77,7 +89,8 @@ export default {
       movie,
       genreOptions,
       saveMovie,
-      deleteMovie
+      deleteMovie,
+      truncateSummary
     };
   },
 };
