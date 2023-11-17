@@ -4,7 +4,7 @@
     <q-input v-model="search" label="Search movie name" />
 
     <!-- Movie list -->
-    <q-list bordered>
+    <q-list>
       <q-item
         class="q-item"
         v-for="movie in filteredMovies"
@@ -56,7 +56,7 @@
 <style scoped>
 .buttons {
   display: flex;
-  align-self: end;
+  align-self: flex-end;
 }
 </style>
 
