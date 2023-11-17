@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="movie-list">
     <!-- Search field -->
     <q-input v-model="search" label="Search movie name" />
 
@@ -12,7 +12,23 @@
         @click="goToDetailScreen(movie)"
       >
         <q-item-section>
-          <q-item-label>{{ movie.id }} {{ movie.title }} {{ movie.genres }}</q-item-label>
+          <q-item-label class="movie-title">{{ movie.title }}</q-item-label>
+          <q-item-label>{{ movie.director }}</q-item-label>
+          <q-item-label>{{ movie.summary }}</q-item-label>
+          <q-item-label class="q-mr-md">
+            <template v-if="movie.genres.length > 0">
+              <span
+                v-for="(genre, index) in movie.genres"
+                :key="index"
+                class="genre-container"
+              >
+                {{ genre }}
+              </span>
+            </template>
+            <template v-else>
+              Unknown genre
+            </template>
+          </q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -28,7 +44,11 @@
     />
 
     <!-- Delete all movies button -->
-    <q-btn color="negative" label="Delete all movies" @click="deleteMovies" />
+    <q-btn
+      class="delete-btn"
+      color="negative"
+      label="Delete all movies"
+      @click="deleteMovies" />
   </div>
 </template>
 
