@@ -1,41 +1,13 @@
-# Quasar App (quasar-project)
+# Movie CRUD App
 
-A Quasar Project
+A Movie CRUD App using Vue and Quasar
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+## Features
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
+- Vue
+- Quasar
+- SCSS
+- pnpm
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
