@@ -8,7 +8,13 @@
             <q-btn label="Save" color="primary" type="submit" />
           </div>
           <q-input v-model="movie.title" label="Title"/>
+          <div v-if="movie.title.trim() === ''">
+            Please enter a title.
+          </div>
           <q-input v-model="movie.director" label="Director"/>
+          <div v-if="movie.director.trim() === ''">
+            Please enter a director.
+          </div>
           <q-input
             v-model="movie.summary"
             label="Summary"
@@ -73,7 +79,12 @@ export default {
       console.log('MovieDetail saved movie:', movie.value);
       if (movie.value.id === 0) {
         // Add movie
-        store.addMovie({...movie.value, id: 0});
+        // store.addMovie({...movie.value, id: 0});
+
+        if (movie.value.title.trim() !== '' || movie.value.director.trim() !== '') {
+          // Add movie
+          store.addMovie({...movie.value, id: 0});
+        }
       } else {
         // Update the movie
         store.updateMovie(movie.value);
