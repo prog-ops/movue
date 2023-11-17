@@ -6,6 +6,7 @@
     <!-- Movie list -->
     <q-list bordered>
       <q-item
+        class="q-item"
         v-for="movie in filteredMovies"
         :key="movie.id"
         clickable
@@ -13,9 +14,9 @@
       >
         <q-item-section>
           <q-item-label class="movie-title">{{ movie.title }}</q-item-label>
-          <q-item-label>{{ movie.director }}</q-item-label>
-          <q-item-label>{{ movie.summary }}</q-item-label>
-          <q-item-label class="q-mr-md">
+          <q-item-label class="q-item-label">{{ movie.director }}</q-item-label>
+          <q-item-label class="q-item-label">{{ movie.summary }}</q-item-label>
+          <q-item-label class="buttons">
             <template v-if="movie.genres.length > 0">
               <span
                 v-for="(genre, index) in movie.genres"
@@ -51,6 +52,13 @@
       @click="deleteMovies" />
   </div>
 </template>
+
+<style scoped>
+.buttons {
+  display: flex;
+  align-self: end;
+}
+</style>
 
 <script lang="ts">
 import {ref, onMounted, onBeforeUpdate, computed} from 'vue';
