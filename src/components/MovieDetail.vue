@@ -5,7 +5,7 @@
         <q-form @submit="saveMovie" class="q-input">
           <div class="button-container">
             <q-btn color="negative" label="Delete" @click="deleteMovie"/>
-            <q-btn label="Save" color="primary" type="submit" />
+            <q-btn label="Save" color="primary" type="submit"/>
           </div>
           <q-input v-model="movie.title" label="Title"/>
           <div v-if="movie.title.trim() === ''">
@@ -41,9 +41,11 @@
   display: flex;
   justify-content: flex-end;
 }
+
 button {
   margin: 8px;
 }
+
 .q-input {
   margin-bottom: 15px;
 }
@@ -77,17 +79,14 @@ export default {
 
     const saveMovie = async () => {
       console.log('MovieDetail saved movie:', movie.value);
-      if (movie.value.id === 0) {
-        // Add movie
-        // store.addMovie({...movie.value, id: 0});
-
-        if (movie.value.title.trim() !== '' || movie.value.director.trim() !== '') {
+      if (movie.value.title.trim() !== '' && movie.value.director.trim() !== '') {
+        if (movie.value.id === 0) {
           // Add movie
           store.addMovie({...movie.value, id: 0});
+        } else {
+          // Update the movie
+          store.updateMovie(movie.value);
         }
-      } else {
-        // Update the movie
-        store.updateMovie(movie.value);
       }
       router.push({name: 'MovieList'});
     };
