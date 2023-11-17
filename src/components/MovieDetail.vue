@@ -1,10 +1,12 @@
 <template>
-  <q-layout>
+  <q-layout class="movie-detail">
     <q-page-container>
       <q-page>
-        <q-form @submit="saveMovie">
-          <q-btn label="Save" color="primary" type="submit"/>
-          <q-btn color="negative" label="Delete" @click="deleteMovie"/>
+        <q-form @submit="saveMovie" class="q-input">
+          <div class="button-container">
+            <q-btn color="negative" label="Delete" @click="deleteMovie"/>
+            <q-btn label="Save" color="primary" type="submit" />
+          </div>
           <q-input v-model="movie.title" label="Title"/>
           <q-input v-model="movie.director" label="Director"/>
           <q-input
@@ -27,6 +29,19 @@
     </q-page-container>
   </q-layout>
 </template>
+
+<style scoped>
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+button {
+  margin: 8px;
+}
+.q-input {
+  margin-bottom: 15px;
+}
+</style>
 
 <script lang="ts">
 import {ref, onMounted} from 'vue';
